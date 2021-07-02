@@ -15,31 +15,52 @@
 version: '3'
 services:
   hbase-master:
-    image: harisekhon/hbase:${VERSION:-latest}
+    image: hbase:2.3.3
     command: master
+    hostname: hbase-master
+    container_name: hbase-master
+    depends_on:
+      - zookeeper
     ports:
       - 16000:16000
       - 16010:16010
   hbase-regionserver:
-    image: harisekhon/hbase:${VERSION:-latest}
+    image: hbase:2.3.3
     command: regionserver
+    hostname: hbase-regionserver
+    container_name: hbase-regionserver
+    depends_on:
+      - zookeeper
     ports:
       - 16030:16030
       - 16201:16201
       - 16301:16301
   hbase-thrift:
-    image: harisekhon/hbase:${VERSION:-latest}
+    image: hbase:2.3.3
     command: thrift
+    hostname: hbase-thrift
+    container_name: hbase-thrift
+    depends_on:
+      - zookeeper
     ports:
       - 9090:9090
       - 9095:9095
   hbase-stargate:
-    image: harisekhon/hbase:${VERSION:-latest}
+    image: hbase:2.3.3
     command: stargate
+    hostname: hbase-stargate
+    container_name: hbase-stargate
+    depends_on:
+      - zookeeper
     ports:
       - 8080:8080
       - 8085:8085
   zookeeper:
-    image: harisekhon/zookeeper:latest
+    image: confluentinc/cp-zookeeper:5.5.0
+    hostname: zookeeper
+    container_name: zookeeper
     ports:
       - 2181:2181
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
