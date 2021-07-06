@@ -1,18 +1,6 @@
-#
-#  Author: Hari Sekhon
-#  Date: 2016-04-24 21:18:57 +0100 (Sun, 24 Apr 2016)
-#
-#  vim:ts=4:sts=4:sw=4:et
-#
-#  https://github.com/harisekhon/Dockerfiles
-#
-#  If you're using my code you're welcome to connect with me on LinkedIn and optionally send me feedback
-#
-#  https://www.linkedin.com/in/harisekhon
-#
 
 FROM harisekhon/alpine-java:jre8
-MAINTAINER Hari Sekhon (https://www.linkedin.com/in/harisekhon)
+MAINTAINER geekyouth (https://github.com/geekyouth/Dockerfiles)
 
 ARG HBASE_VERSION=2.3.3
 
@@ -94,3 +82,8 @@ COPY profile.d/java.sh /etc/profile.d/
 EXPOSE 2181 8080 8085 9090 9095 16000 16010 16030 16201 16301
 
 ENTRYPOINT ["/entrypoint.sh"]
+
+# cd hbase 
+# docker build -t hbase:2.3.3-release .
+# docker tag hbase:2.3.3-release geekyouth/hbase:2.3.3-release
+# docker push geekyouth/hbase:2.3.3-release
