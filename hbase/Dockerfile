@@ -75,15 +75,21 @@ COPY entrypoint.sh /
 COPY conf/hbase-site.xml /hbase/conf/
 COPY profile.d/java.sh /etc/profile.d/
 
-# Stargate  8080  / 8085
-# Thrift    9090  / 9095
-# HMaster   16000 / 16010
-# RS        16201 / 16301
-EXPOSE 2181 8080 8085 9090 9095 16000 16010 16030 16201 16301
+# zk 2181
+# hbase.rest.port  8080
+# hbase.rest.info.port 8085
+# hbase.regionserver.thrift.port    9090
+# hbase.thrift.info.port 9095
+# hbase.master.port   16000
+# hbase.master.info.port 16010
+# hbase.regionserver.port 16020
+# hbase.regionserver.info.port 16030
+EXPOSE 2181 8080 8085 9090 9095 16000 16010 16020 16030
 
 ENTRYPOINT ["/entrypoint.sh"]
 
 # cd hbase 
-# docker build -t hbase:2.3.3-release .
-# docker tag hbase:2.3.3-release geekyouth/hbase:2.3.3-release
-# docker push geekyouth/hbase:2.3.3-release
+# docker build -t hbase:2.3.3 .
+# docker tag hbase:2.3.3 geekyouth/hbase:2.3.3
+# docker push geekyouth/hbase:2.3.3
+# docker rmi hbase:2.3.3
