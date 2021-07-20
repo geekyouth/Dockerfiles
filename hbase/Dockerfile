@@ -89,7 +89,7 @@ EXPOSE 2181 8080 8085 9090 9095 16000 16010 16020 16030
 ENTRYPOINT ["/entrypoint.sh"]
 
 # cd hbase 
-# docker build -t hbase:2.3.3 .
-# docker tag hbase:2.3.3 geekyouth/hbase:2.3.3
-# docker push geekyouth/hbase:2.3.3
-# docker rmi hbase:2.3.3
+# docker build -t hbase:2.3.3.1 .
+# docker tag hbase:2.3.3.1 geekyouth/hbase:2.3.3.1
+# docker push geekyouth/hbase:2.3.3.1
+# docker rmi hbase:2.3.3.1
