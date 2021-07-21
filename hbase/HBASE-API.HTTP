@@ -1,0 +1,20 @@
+# https://blog.csdn.net/qq_32252917/article/details/78386318
+
+###
+GET localhost:18080/version/cluster
+
+###
+GET localhost:18080/status/cluster
+
+### 查看所有表名
+GET localhost:18080/
+
+###
+GET localhost:18080/namespaces/
+
+###
+GET localhost:18080/namespaces/hbase
+
+# hbase(四)–使用java通过thrift操作hbase_panda-star的博客-CSDN博客
+# https://blog.csdn.net/chinabestchina/article/details/105720328
+
