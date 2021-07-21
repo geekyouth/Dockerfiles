@@ -1,7 +1,7 @@
-# 1、启动 hbase 的方式（二选一）：
+# 1、启动 hbase 实例的方式（二选一）：
 
-## 1.1、docker image 方式
-此方式运行时，不要修改端口号映射规则，并且 Java/scala 项目需要如下配置，来映射 hostname 和 ip 关系，可以省去修改 hosts 文件：  
+## 1.1、docker image 方式（推荐）
+此方式运行时，不要修改 hbase 端口号(不含 2181，含 16000、16010、16020、16030)映射规则，并且 Java/scala 项目需要如下配置，来映射 hostname 和 ip 关系，可以省去修改 hosts 文件：  
 
 ```xml
 <dependency>
@@ -19,10 +19,11 @@ JavaHost.updateVirtualDns("hbase", "127.0.0.1");
 ```
 
 ```shell
-docker run -d --name hbase --hostname hbase -p 2181:2181 -p 8080:8080 -p 8085:8085 -p 9090:9090 -p 9095:9095 -p 16000:16000 -p 16010:16010 -p 16020:16020 -p 16030:16030 geekyouth/hbase:2.3.3.1
+docker run -d --name hbase --hostname hbase -p 2181:2181 -p 18080:18080 -p 8085:8085 -p 9090:9090 -p 9095:9095 -p 16000:16000 -p 16010:16010 -p 16020:16020 -p 16030:16030 geekyouth/hbase:2.3.3.2
 ```
 
 ## 1.2、docker-compose 方式
+此方式运行时，不要修改 ZK 端口号 2181（怀疑是 ZK image 有问题）映射规则，不要修改 hbase 端口号(16000、16010、16020、16030)映射规则，并且 Java/scala 项目需要如下配置，来映射 hostname 和 ip 关系，可以省去修改 hosts 文件：
 
 hbase-compose.yaml
 ```yaml
@@ -45,7 +46,7 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - 8080:8080
+      - 18080:18080
       - 8085:8085
       - 9090:9090
       - 9095:9095
@@ -81,3 +82,6 @@ JavaHost.updateVirtualDns("hbase", "127.0.0.1");
 JavaHost.updateVirtualDns("zookeeper", "127.0.0.1");
 ```
 
+# 更新记录
+## 2021-07-21  
+主要更新 hbase.rest.port 为 18080，默认 8080 会和 ZK 冲突；

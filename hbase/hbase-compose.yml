@@ -11,13 +11,13 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   hbase:
-    image: geekyouth/hbase:2.3.3.1
+    image: geekyouth/hbase:2.3.3.2
     hostname: hbase
     container_name: hbase
     depends_on:
       - zookeeper
     ports:
-      - 8080:8080
+      - 18080:18080
       - 8085:8085
       - 9090:9090
       - 9095:9095
