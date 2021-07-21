@@ -1,0 +1,29 @@
+version: "3.3"
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.5.0
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  hbase:
+    image: geekyouth/hbase:2.3.3.2
+    hostname: hbase
+    container_name: hbase
+    depends_on:
+      - zookeeper
+    ports:
+      - 18080:18080
+      - 8085:8085
+      - 9090:9090
+      - 9095:9095
+      - 16000:16000
+      - 16010:16010
+      - 16020:16020
+      - 16030:16030
+    environment:
+      ZK_SERVER: zookeeper:2181

@@ -20,6 +20,7 @@ set -euo pipefail
 
 export HBASE_HOME="/hbase"
 export JAVA_HOME="${JAVA_HOME:-/usr}"
+export ZK_SERVER="${ZK_SERVER:-localhost:2181}"
 
 echo "================================================================================"
 echo "                              HBase Docker Container"
@@ -129,8 +130,12 @@ if [ -n "$*" ]; then
         echo "usage:  must specify one of: master, regionserver, thrift, rest, shell, bash"
     fi
 else
-    sed -i 's/zookeeper:2181/localhost:2181/' "$HBASE_HOME/conf/hbase-site.xml"
-    start_zookeeper
+#    sed -e "s|localhost:2181|$ZK_SERVER|" $HBASE_HOME/conf/hbase-site.xml
+    sed -i "s/localhost:2181/$ZK_SERVER/" $HBASE_HOME/conf/hbase-site.xml
+    if [ "$ZK_SERVER" = localhost:2181 ] || [ "$ZK_SERVER" = 127.0.0.1:2181 ]; then
+      start_zookeeper
+    fi
+
     start_master
     start_regionserver
     start_stargate
